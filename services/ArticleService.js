@@ -34,11 +34,12 @@ module.exports = class ArticleService{
         }
     }
 
-    static async updateArticle(title, body, articleImage){
+    static async updateArticle(data){
             try {
                 const updateResponse =  await Article.updateOne(
-                    {title, body, articleImage}, 
-                    {$set: {date: new Date.now()}});
+                    {_id: data._id},
+                    { $set: data },
+                    { new: true },);
 
                     return updateResponse;
             } catch (error) {
